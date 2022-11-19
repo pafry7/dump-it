@@ -1,12 +1,15 @@
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeView } from "../screens/Home";
+import { CameraView } from "../screens/CameraView";
 
 const Stack = createNativeStackNavigator();
 
-export function MyStack() {
+export function Router() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeView} />
-    </Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="CameraView" component={CameraView} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
