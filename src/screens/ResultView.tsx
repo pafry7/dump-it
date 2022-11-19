@@ -1,6 +1,8 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { FlatList } from "react-native";
 import { Div, Icon, Text } from "react-native-magnus";
+import { HomeStackParamList, ViewProps } from "../navigation/HomeStack";
 
 const renderItem = ({ item, index }) => {
   return <Text fontSize={20}>{`${item}`}</Text>;
@@ -23,7 +25,8 @@ const TrashFooter = ({
   );
 };
 
-export const TrashView = () => {
+export const ResultView = ({ route }: ViewProps<"ResultView">) => {
+  console.log(route.params);
   return (
     <Div flex={1} p={30} w="100%">
       <Div flex={4} alignItems="center">
