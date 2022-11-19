@@ -2,7 +2,6 @@ import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
-  NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 import { CameraView } from "../screens/CameraView";
 import { ResultView } from "../screens/ResultView";

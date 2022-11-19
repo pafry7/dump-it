@@ -1,11 +1,11 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
-import { FlatList } from "react-native";
-import { Div, Icon, Text } from "react-native-magnus";
-import { HomeStackParamList, ViewProps } from "../navigation/HomeStack";
+import { Animated, Dimensions, FlatList, StyleSheet } from "react-native";
+import { Button, Div, Icon, Text } from "react-native-magnus";
+import { Item, items } from "../data";
+import { ViewProps } from "../navigation/HomeStack";
 
 const renderItem = ({ item, index }) => {
-  return <Text fontSize={20}>{`${item}`}</Text>;
+  return <Text color="white" fontSize={20}>{`${item}`}</Text>;
 };
 
 const TrashFooter = ({
@@ -27,20 +27,131 @@ const TrashFooter = ({
 
 export const ResultView = ({ route }: ViewProps<"ResultView">) => {
   console.log(route.params);
+  const { width, height } = Dimensions.get("window");
+  const item = items[0];
+  const scroll = React.useRef<Animated.ScrollView>(null);
+
+  const goBack = (index: number) => {
+    scroll.current?.scrollTo({
+      x: width * (index - 1),
+      animated: true,
+    });
+  };
+
+  const goForward = (index: number) => {
+    scroll.current?.scrollTo({
+      x: width * (index + 1),
+      animated: true,
+    });
+  };
+
+  const handleFinish = () => {};
+
   return (
-    <Div flex={1} p={30} w="100%">
-      <Div flex={4} alignItems="center">
-        <Text fontSize={25}>Śmieć</Text>
-        <FlatList
-          contentContainerStyle={{
-            justifyContent: "flex-start",
-            marginTop: 20,
-          }}
-          data={["Wrzuc do żółtego pojemnika", "Wyrzuć tego śmiecia", "Zjedz"]}
-          renderItem={renderItem}
-        />
+    <Div h="100%" w="100%" bg="black">
+      <Div mt={43} justifyContent="center" position="relative" h={32}>
+        <Text variant="textInfo" color="white" textAlign="center">
+          {item.name}
+        </Text>
       </Div>
-      <TrashFooter color="yellow" content="Wrzuć do żółtego pojemnika" />
+      <Animated.View
+        style={{
+          height: 0.9 * height,
+        }}
+      >
+        <Animated.ScrollView
+          ref={scroll}
+          horizontal
+          snapToInterval={width}
+          showsHorizontalScrollIndicator={false}
+          scrollEnabled={false}
+          bounces={false}
+        >
+          <Div w="100%" flexDir="row" justifyContent="flex-start">
+            <Div w={width} h="100%" position="relative" p={20}>
+              <FlatList
+                contentContainerStyle={{
+                  justifyContent: "flex-start",
+                  marginTop: 20,
+                }}
+                data={item.tips}
+                renderItem={renderItem}
+              />
+              <Div
+                flexDir="row"
+                w="100%"
+                alignSelf="center"
+                justifyContent="space-between"
+              >
+                <Button style={styles.button} w="48%" onPress={() => {}}>
+                  <Text variant="bodyText" color="white">
+                    Wróć
+                  </Text>
+                </Button>
+                <Button
+                  style={styles.button}
+                  w="48%"
+                  onPress={() => goForward(0)}
+                >
+                  <Text variant="bodyText" color="white">
+                    Dalej
+                  </Text>
+                </Button>
+              </Div>
+            </Div>
+            <Div w={width} justifyContent="flex-end" p={20}>
+              <Div
+                flexDir="row"
+                w="100%"
+                alignSelf="center"
+                justifyContent="space-between"
+              >
+                <Button style={styles.button} w="48%" onPress={() => goBack(1)}>
+                  <Text variant="bodyText" color="white">
+                    Wróć
+                  </Text>
+                </Button>
+                <Button
+                  style={styles.button}
+                  w="48%"
+                  onPress={() => goForward(1)}
+                >
+                  <Text variant="bodyText" color="white">
+                    Dalej
+                  </Text>
+                </Button>
+              </Div>
+            </Div>
+            <Div
+              w={width}
+              justifyContent="space-between"
+              alignItems="center"
+              p={20}
+            >
+              <Icon
+                mt={100}
+                name="trash"
+                fontFamily="Entypo"
+                color={item.trashColor}
+                fontSize={300}
+              />
+              <Button style={styles.button} onPress={() => goBack(2)}>
+                <Text variant="bodyText" color="white">
+                  Wróć
+                </Text>
+              </Button>
+            </Div>
+          </Div>
+        </Animated.ScrollView>
+      </Animated.View>
     </Div>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    width: "100%",
+    padding: 10,
+    alignSelf: "center",
+  },
+});
