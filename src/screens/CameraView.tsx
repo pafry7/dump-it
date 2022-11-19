@@ -11,7 +11,6 @@ import {
 import { Label } from "../components/Label";
 import { ResultCard } from "../components/ResultCard";
 import { Button, Icon } from "react-native-magnus";
-import { IconButton } from "../components/IconButton";
 import { ViewProps } from "../navigation/HomeStack";
 
 export function CameraView({ navigation }: ViewProps<"CameraView">) {
@@ -38,26 +37,24 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
   }
 
   return (
-    <Camera
-      style={{ flex: 1, position: "relative" }}
-      device={device}
-      isActive={true}
-      frameProcessor={frameProcessor}
-    >
+    <>
+      <Camera
+        style={{ flex: 1, position: "relative" }}
+        device={device}
+        isActive={true}
+        frameProcessor={frameProcessor}
+      />
       <ResultCard>
         <Label sharedValue={sharedVal} />
         <Button
           bg="green300"
           color="green700"
-          mt="lg"
           h={50}
           onPress={() => {
             navigation.navigate("ResultView", { result: sharedVal.value });
           }}
           w={140}
           rounded={12}
-          px="xl"
-          py="lg"
           fontSize="xl"
           fontWeight="bold"
           suffix={
@@ -73,6 +70,6 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
           Zatwierdź
         </Button>
       </ResultCard>
-    </Camera>
+    </>
   );
 }

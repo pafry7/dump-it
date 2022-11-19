@@ -14,9 +14,10 @@ export const ResultCard = ({ children }: ResultCardProps) => {
       bg="white"
       h={100}
       px={32}
-      py={16}
       flexDir="row"
       justifyContent="space-between"
+      py={24}
+      alignItems="center"
       style={{
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,

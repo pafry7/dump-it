@@ -2,13 +2,14 @@ import { Router } from "./src/navigation/HomeStack";
 import { ThemeProvider } from "react-native-magnus";
 
 import "expo-dev-client";
-import { TrashView } from "./src/screens/Trash";
-import { items } from "./src/data";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <Router />
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ThemeProvider>
+        <Router />
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
