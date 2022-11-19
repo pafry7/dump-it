@@ -10,8 +10,9 @@ import {
 } from "react-native-vision-camera";
 import { Label } from "../components/Label";
 import { ResultCard } from "../components/ResultCard";
-import { Button, Icon } from "react-native-magnus";
+import { Button, Div, Icon } from "react-native-magnus";
 import { ViewProps } from "../navigation/HomeStack";
+import { Pressable } from "react-native";
 
 export function CameraView({ navigation }: ViewProps<"CameraView">) {
   const sharedVal = useSharedValue("");
@@ -44,6 +45,28 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
         isActive={true}
         frameProcessor={frameProcessor}
       />
+      <Div
+        bg="white"
+        position="absolute"
+        top={20}
+        right={20}
+        rounded={50}
+        p={10}
+      >
+        <Pressable
+          onPress={() => {
+            navigation.navigate("CalendarView");
+          }}
+        >
+          <Icon
+            name="calendar"
+            fontSize={20}
+            alignSelf="flex-end"
+            fontFamily="Entypo"
+            color="black"
+          />
+        </Pressable>
+      </Div>
       <ResultCard>
         <Label sharedValue={sharedVal} />
         <Button
