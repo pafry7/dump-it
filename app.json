@@ -13,6 +13,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.alergeek.ventures.dump"
-    }
+    },
+    "plugins": ["react-native-vision-camera"]
   }
 }
