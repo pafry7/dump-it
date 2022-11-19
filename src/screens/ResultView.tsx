@@ -38,19 +38,19 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
   const scroll = useRef<Animated.ScrollView>(null);
 
   const goBack = (index: number) => {
+    setIndex(index - 1);
     scroll.current?.scrollTo({
       x: width * (index - 1),
       animated: true,
     });
-    setIndex(index - 1);
   };
 
   const goForward = (index: number) => {
+    setIndex(index + 1);
     scroll.current?.scrollTo({
       x: width * (index + 1),
       animated: true,
     });
-    setIndex(index + 1);
   };
 
   const handleFinish = () => {};
@@ -70,11 +70,18 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
             ref={scroll}
             horizontal
             snapToInterval={width}
-            onScroll={(e) => {
-              setIndex(Math.round(e.nativeEvent.contentOffset.x / width));
-            }}
-            scrollEventThrottle={32}
-            decelerationRate="fast"
+            // not working properly when pressing buttons
+            // fix when there is enough time
+            // onScroll={(e) => {
+            //   const current = Math.round(e.nativeEvent.contentOffset.x / width);
+            //   console.log(current, index, e.nativeEvent.contentOffset.x);
+            //   // if (current < index) {
+            //   setIndex(current);
+            //   // }
+            // }}
+            // scrollEventThrottle={100}
+            // decelerationRate="fast"
+            // scrollEnabled={true}
             showsHorizontalScrollIndicator={false}
             bounces={false}
           >
