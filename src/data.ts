@@ -54,3 +54,35 @@ const electronicTips = [
   "Oddaj zużyty sprzęt elektryczny i elektroniczny w miejscu dostawy",
   "Odnieś zużyty sprzęt do punktu zbierania",
 ];
+
+export interface CallendarItem {
+  name: string;
+  days: string;
+}
+
+export const calendarData: CallendarItem[] = [
+  {
+    days: "14.11",
+    name: "Odpady komunalne",
+  },
+  {
+    name: "Odpady Bio",
+    days: "15.11, 29.11",
+  },
+  {
+    name: "Szkło",
+    days: "28.11",
+  },
+  {
+    name: "Papier",
+    days: "20.11",
+  },
+  {
+    name: "Plastik",
+    days: "28.11",
+  },
+  {
+    name: "Metal",
+    days: "28.11",
+  },
+];
