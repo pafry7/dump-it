@@ -14,7 +14,7 @@ export const items: Item[] = [
       "Chcesz mieć bielsze zęby? Pocieraj je skórką od banana",
     ],
     shareable: true,
-    trashColor: "red",
+    trashColor: "yellow800",
   },
   {
     name: "plastic bottle",

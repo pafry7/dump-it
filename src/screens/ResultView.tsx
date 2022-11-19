@@ -6,7 +6,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { Header } from "../components/Header";
-import { Item, items } from "../data";
+import { items } from "../data";
 import { ViewProps } from "../navigation/HomeStack";
 import Animated from "react-native-reanimated";
 import { ReuseInfo } from "../components/ReuseInfo";
@@ -18,11 +18,12 @@ const StepCircles = ({ index }: { index: number }) => {
     <Box flexDir="row" alignItems="center">
       {[0, 1, 2].map((circle) => (
         <Box
+          key={circle}
           w={13}
           h={13}
           rounded={900}
-          ml={circle > 0 ? 4 : undefined}
-          bg={circle <= index ? "orange700" : "orange300"}
+          ml={circle > 0 ? 8 : undefined}
+          bg={circle <= index ? "indigo700" : "indigo300"}
         />
       ))}
     </Box>
@@ -69,8 +70,12 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
             ref={scroll}
             horizontal
             snapToInterval={width}
+            onScroll={(e) => {
+              setIndex(Math.round(e.nativeEvent.contentOffset.x / width));
+            }}
+            scrollEventThrottle={32}
+            decelerationRate="fast"
             showsHorizontalScrollIndicator={false}
-            scrollEnabled={false}
             bounces={false}
           >
             <Div
@@ -81,28 +86,8 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
             >
               <ReuseInfo tips={item.tips} />
               <ShareInfo />
-              <TrashInfo color="blue" />
+              <TrashInfo color={item.trashColor} />
             </Div>
-            {/* <Div
-            w={width}
-            justifyContent="space-between"
-            alignItems="center"
-            p={20}
-          >
-            <Icon
-              mt={100}
-              name="trash"
-              fontFamily="Entypo"
-              color={item.trashColor}
-              fontSize={300}
-            />
-            <Button style={styles.button} onPress={() => goBack(2)}>
-              <Text variant="bodyText" color="white">
-                Wróć
-              </Text>
-            </Button>
-          </Div>
-        </Div> */}
           </Animated.ScrollView>
         </Animated.View>
         <Box alignSelf="center" w="100%" alignItems="center" h="100%" px={12}>
@@ -115,9 +100,9 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
             w="100%"
           >
             <Button
-              bg="orange300"
+              bg="indigo300"
               mt={6}
-              color="orange700"
+              color="indigo700"
               h={50}
               onPress={() => {
                 goBack(index);
@@ -130,7 +115,7 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
               prefix={
                 <Icon
                   name="arrow-left"
-                  color="orange700"
+                  color="indigo700"
                   mr="md"
                   fontSize={18}
                   fontFamily="FontAwesome"
@@ -140,9 +125,9 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
               Wstecz
             </Button>
             <Button
-              bg="orange300"
+              bg="indigo300"
               mt={6}
-              color="orange700"
+              color="indigo700"
               h={50}
               onPress={() => {
                 goForward(index);
@@ -155,7 +140,7 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
               suffix={
                 <Icon
                   name="arrow-right"
-                  color="orange700"
+                  color="indigo700"
                   ml="md"
                   fontSize={18}
                   fontFamily="FontAwesome"
