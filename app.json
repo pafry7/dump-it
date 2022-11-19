@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "dump-it",
+    "slug": "dump-it",
+    "owner": "alergeek-ventures",
+    "extra": {
+      "eas": {
+        "projectId": "9c07aec5-d0cd-4b49-b847-c519abad01b3"
+      }
+    },
+    "android": {
+      "package": "com.alergeek.ventures.dump"
+    },
+    "ios": {
+      "bundleIdentifier": "com.alergeek.ventures.dump"
+    }
+  }
+}
