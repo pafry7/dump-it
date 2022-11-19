@@ -1,8 +1,11 @@
+type ItemType = "shareable" | "electronic" | "waste";
+
 export interface Item {
+  type: ItemType;
   name: string;
   tips: string[];
-  shareable: boolean;
   trashColor: string;
+  trashName: string;
 }
 
 export const items: Item[] = [
@@ -13,8 +16,9 @@ export const items: Item[] = [
       "Sprawdzony krem nawilżający",
       "Chcesz mieć bielsze zęby? Pocieraj je skórką od banana",
     ],
-    shareable: true,
+    type: "waste",
     trashColor: "yellow800",
+    trashName: "Bio",
   },
   {
     name: "plastic bottle",
@@ -26,8 +30,9 @@ export const items: Item[] = [
       "Pojemnik na produkty sypkie",
       "Szufelka na psie kupy",
     ],
-    shareable: true,
-    trashColor: "yellow",
+    type: "waste",
+    trashColor: "yellow300",
+    trashName: "Plastik",
   },
   {
     name: "glass bottle",
@@ -37,14 +42,23 @@ export const items: Item[] = [
       "Lampki nocne z butelek",
       "Wazon na kwiaty",
     ],
-    shareable: true,
+    type: "waste",
     trashColor: "green",
+    trashName: "Szkło",
   },
   {
     name: "mobile device",
     tips: [],
-    shareable: true,
+    type: "electronic",
     trashColor: "green",
+    trashName: "Nie dotyczy",
+  },
+  {
+    name: "vase",
+    tips: [],
+    type: "shareable",
+    trashColor: "green",
+    trashName: "Nie dotyczy",
   },
 ];
 

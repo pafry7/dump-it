@@ -5,7 +5,10 @@ import Animated, { FadeInUp } from "react-native-reanimated";
 
 const TipItem = ({ tip }: { tip: string }) => {
   return (
-    <Animated.View style={{ height: 50 }} entering={FadeInUp.duration(300)}>
+    <Animated.View
+      entering={FadeInUp.duration(300)}
+      style={{ marginBottom: 20 }}
+    >
       <Text fontSize={24} fontWeight="500" textAlign="center">
         {tip}
       </Text>

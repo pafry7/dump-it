@@ -1,3 +1,4 @@
+import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { FlatList } from "react-native";
 import { Div, Text } from "react-native-magnus";
@@ -26,6 +27,7 @@ const renderItem = ({
 export const CalendarView = ({ navigation }: ViewProps<"CameraView">) => {
   return (
     <Div h="100%" w="100%" bg="white">
+      <StatusBar style="dark" />
       <Header name="Wywozy" goBack={navigation.goBack} />
       <FlatList
         contentContainerStyle={{

@@ -12,7 +12,8 @@ import { Label } from "../components/Label";
 import { ResultCard } from "../components/ResultCard";
 import { Button, Div, Icon } from "react-native-magnus";
 import { ViewProps } from "../navigation/HomeStack";
-import { Pressable } from "react-native";
+import { Pressable, TouchableOpacity } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 export function CameraView({ navigation }: ViewProps<"CameraView">) {
   const sharedVal = useSharedValue("");
@@ -39,6 +40,7 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
 
   return (
     <>
+      <StatusBar style="light" />
       <Camera
         style={{ flex: 1, position: "relative" }}
         device={device}
@@ -48,12 +50,13 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
       <Div
         bg="white"
         position="absolute"
-        top={20}
+        top={40}
         right={20}
         rounded={50}
         p={10}
       >
-        <Pressable
+        <TouchableOpacity
+          activeOpacity={0.7}
           onPress={() => {
             navigation.navigate("CalendarView");
           }}
@@ -61,11 +64,10 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
           <Icon
             name="calendar"
             fontSize={20}
-            alignSelf="flex-end"
             fontFamily="Entypo"
             color="black"
           />
-        </Pressable>
+        </TouchableOpacity>
       </Div>
       <ResultCard>
         <Label sharedValue={sharedVal} />

@@ -12,11 +12,18 @@ import Animated from "react-native-reanimated";
 import { ReuseInfo } from "../components/ReuseInfo";
 import { ShareInfo } from "../components/ShareInfo";
 import { TrashInfo } from "../components/TrashInfo";
+import { StatusBar } from "expo-status-bar";
 
-const StepCircles = ({ index }: { index: number }) => {
+const StepCircles = ({
+  index,
+  circlesAmount,
+}: {
+  index: number;
+  circlesAmount: number;
+}) => {
   return (
     <Box flexDir="row" alignItems="center">
-      {[0, 1, 2].map((circle) => (
+      {Array.from({ length: circlesAmount }, (_, i) => i).map((circle) => (
         <Box
           key={circle}
           w={13}
@@ -38,27 +45,29 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
   const scroll = useRef<Animated.ScrollView>(null);
 
   const goBack = (index: number) => {
-    setIndex(index - 1);
     scroll.current?.scrollTo({
       x: width * (index - 1),
       animated: true,
     });
+    setIndex(index - 1);
   };
 
   const goForward = (index: number) => {
-    setIndex(index + 1);
     scroll.current?.scrollTo({
       x: width * (index + 1),
       animated: true,
     });
+    setIndex(index + 1);
   };
-
-  const handleFinish = () => {};
 
   const insets = useSafeAreaInsets();
 
+  const maxSteps = item.type === "shareable" ? 3 : 2;
+  const lastStep = index === maxSteps - 1;
+
   return (
     <Div h="100%" w="100%" bg="white">
+      <StatusBar style="dark" />
       <SafeAreaView style={{ flex: 1 }}>
         <Header name={result} goBack={navigation.goBack} />
         <Animated.View
@@ -81,7 +90,7 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
             // }}
             // scrollEventThrottle={100}
             // decelerationRate="fast"
-            // scrollEnabled={true}
+            scrollEnabled={false}
             showsHorizontalScrollIndicator={false}
             bounces={false}
           >
@@ -91,14 +100,23 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
               justifyContent="flex-start"
               h={height - 50 - insets.top - 40} // - (header + status bar)
             >
-              <ReuseInfo tips={item.tips} />
-              <ShareInfo />
-              <TrashInfo color={item.trashColor} />
+              {item.type === "shareable" ? (
+                <>
+                  <ReuseInfo tips={item.tips} />
+                  <ShareInfo />
+                  <TrashInfo color={item.trashColor} name={item.trashName} />
+                </>
+              ) : item.type === "waste" ? (
+                <>
+                  <ReuseInfo tips={item.tips} />
+                  <TrashInfo color={item.trashColor} name={item.trashName} />
+                </>
+              ) : null}
             </Div>
           </Animated.ScrollView>
         </Animated.View>
         <Box alignSelf="center" w="100%" alignItems="center" h="100%" px={12}>
-          <StepCircles index={index} />
+          <StepCircles index={index} circlesAmount={maxSteps} />
           <Box
             mt={10}
             flexDir="row"
@@ -106,67 +124,91 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
             justifyContent="space-between"
             w="100%"
           >
-            <Button
-              bg="indigo300"
-              mt={6}
-              color="indigo700"
-              h={50}
-              onPress={() => {
-                goBack(index);
-              }}
-              w={120}
-              rounded={12}
-              fontSize="xl"
-              fontWeight="bold"
-              alignSelf="flex-end"
-              prefix={
-                <Icon
-                  name="arrow-left"
-                  color="indigo700"
-                  mr="md"
-                  fontSize={18}
-                  fontFamily="FontAwesome"
-                />
-              }
-            >
-              Wstecz
-            </Button>
-            <Button
-              bg="indigo300"
-              mt={6}
-              color="indigo700"
-              h={50}
-              onPress={() => {
-                goForward(index);
-              }}
-              w={120}
-              rounded={12}
-              fontSize="xl"
-              fontWeight="bold"
-              alignSelf="flex-end"
-              suffix={
-                <Icon
-                  name="arrow-right"
-                  color="indigo700"
-                  ml="md"
-                  fontSize={18}
-                  fontFamily="FontAwesome"
-                />
-              }
-            >
-              Dalej
-            </Button>
+            {index > 0 ? (
+              <Button
+                bg="indigo300"
+                mt={6}
+                color="indigo700"
+                h={50}
+                onPress={() => {
+                  goBack(index);
+                }}
+                w={120}
+                rounded={12}
+                fontSize="xl"
+                fontWeight="bold"
+                alignSelf="flex-end"
+                prefix={
+                  <Icon
+                    name="arrow-left"
+                    color="indigo700"
+                    mr="md"
+                    fontSize={18}
+                    fontFamily="FontAwesome"
+                  />
+                }
+              >
+                Wstecz
+              </Button>
+            ) : (
+              <Box w={120} />
+            )}
+            {lastStep ? (
+              <Button
+                bg="orange300"
+                mt={6}
+                color="orange700"
+                h={50}
+                onPress={() => {
+                  navigation.goBack();
+                }}
+                w={120}
+                rounded={12}
+                fontSize="xl"
+                fontWeight="bold"
+                alignSelf="flex-end"
+                suffix={
+                  <Icon
+                    name="check"
+                    color="orange700"
+                    ml="md"
+                    fontSize={18}
+                    fontFamily="FontAwesome"
+                  />
+                }
+              >
+                Zakończ
+              </Button>
+            ) : (
+              <Button
+                bg="indigo300"
+                mt={6}
+                color="indigo700"
+                h={50}
+                onPress={() => {
+                  goForward(index);
+                }}
+                w={120}
+                rounded={12}
+                fontSize="xl"
+                fontWeight="bold"
+                alignSelf="flex-end"
+                suffix={
+                  <Icon
+                    name="arrow-right"
+                    color="indigo700"
+                    ml="md"
+                    fontSize={18}
+                    fontFamily="FontAwesome"
+                  />
+                }
+              >
+                Dalej
+              </Button>
+            )}
           </Box>
         </Box>
       </SafeAreaView>
     </Div>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    width: "100%",
-    padding: 10,
-    alignSelf: "center",
-  },
-});
