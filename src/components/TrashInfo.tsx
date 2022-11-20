@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useRef } from "react";
 import { Dimensions, TouchableOpacity } from "react-native";
 import { Box, Button, Div, Icon, Text } from "react-native-magnus";
-import { IconButton } from "./IconButton";
 import { formatDistanceToNow, format } from "date-fns";
 
 import {

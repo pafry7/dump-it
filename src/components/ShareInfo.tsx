@@ -2,11 +2,7 @@ import React from "react";
 import { Dimensions } from "react-native";
 import { Box, Button, Div, Icon, Text } from "react-native-magnus";
 
-import Animated, { FadeInUp } from "react-native-reanimated";
-
-interface ReuseInfoProps {}
-
-export const ShareInfo = ({}: ReuseInfoProps) => {
+export const ShareInfo = () => {
   const { width } = Dimensions.get("window");
   return (
     <Div w={width} p={20} alignItems="center">

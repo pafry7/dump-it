@@ -3,7 +3,6 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { CalendarView } from "../screens/CalendarView";
 import { CameraView } from "../screens/CameraView";
 import { ResultView } from "../screens/ResultView";
 
@@ -29,7 +28,6 @@ export function Router() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="CameraView" component={CameraView} />
         <Stack.Screen name="ResultView" component={ResultView} />
-        <Stack.Screen name="CalendarView" component={CalendarView} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Dimensions } from "react-native";
-import { Box, Button, Div, Icon, Text } from "react-native-magnus";
+import { Box, Button, Div, Icon } from "react-native-magnus";
 import {
   SafeAreaView,
   useSafeAreaInsets,
