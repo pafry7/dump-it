@@ -92,7 +92,7 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
   return (
     <Div w={width} p={20} alignItems="center">
       <Text fontSize={24} fontWeight="500" textAlign="center">
-        Wyrzuć do odpowiedniego śmietnika/worka:
+        Wyrzuć do odpowiedniego śmietnika/worka
       </Text>
       <Box mt={50} alignItems="center" justifyContent="center">
         <TrashItem
@@ -111,8 +111,8 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
         mt={24}
       >
         <Box>
-          <Text fontSize={18} fontWeight="500">
-            Kiedy wywóz?
+          <Text fontSize={18} fontWeight="600">
+            Next garbage disposal
           </Text>
           <Text fontSize={18} fontWeight="400">
             22.11.2022
@@ -126,12 +126,12 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
           onPress={() => {
             bottomSheetDatesRef.current.present();
           }}
-          w={130}
+          w={100}
           rounded={12}
           fontSize="xl"
           fontWeight="bold"
         >
-          Pokaż więcej
+          More
         </Button>
       </Box>
       <BottomSheetModal
@@ -163,13 +163,17 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
           <Box mt={8}>
             <Text fontSize={18}>Co wyrzucać?</Text>
             {trashData.shouldBeDumped.map((item) => (
-              <Text fontSize={14}>- {item}</Text>
+              <Text key={item} fontSize={14}>
+                - {item}
+              </Text>
             ))}
           </Box>
           <Box mt={8} mb={50}>
             <Text fontSize={18}>Czego nie wyrzucać?</Text>
             {trashData.shouldNotBeDumped.map((item) => (
-              <Text fontSize={14}>- {item}</Text>
+              <Text key={item} fontSize={14}>
+                - {item}
+              </Text>
             ))}
           </Box>
         </BottomSheetScrollView>

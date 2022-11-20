@@ -31,7 +31,7 @@ const StepCircles = ({
           h={13}
           rounded={900}
           ml={circle > 0 ? 8 : undefined}
-          bg={circle <= index ? "indigo700" : "indigo300"}
+          bg={circle <= index ? "gray700" : "gray300"}
         />
       ))}
     </Box>
@@ -146,9 +146,9 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
               >
                 {index > 0 ? (
                   <Button
-                    bg="indigo300"
+                    bg="gray300"
                     mt={6}
-                    color="indigo700"
+                    color="gray700"
                     h={50}
                     onPress={() => {
                       goBack(index);
@@ -161,14 +161,14 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
                     prefix={
                       <Icon
                         name="arrow-left"
-                        color="indigo700"
+                        color="gray700"
                         mr="md"
                         fontSize={18}
                         fontFamily="FontAwesome"
                       />
                     }
                   >
-                    Wstecz
+                    Back
                   </Button>
                 ) : (
                   <Box w={120} />
@@ -197,13 +197,13 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
                       />
                     }
                   >
-                    Zakończ
+                    Finish
                   </Button>
                 ) : (
                   <Button
-                    bg="indigo300"
+                    bg="gray300"
                     mt={6}
-                    color="indigo700"
+                    color="gray700"
                     h={50}
                     onPress={() => {
                       goForward(index);
@@ -216,14 +216,14 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
                     suffix={
                       <Icon
                         name="arrow-right"
-                        color="indigo700"
+                        color="gray700"
                         ml="md"
                         fontSize={18}
                         fontFamily="FontAwesome"
                       />
                     }
                   >
-                    Dalej
+                    Next
                   </Button>
                 )}
               </Box>

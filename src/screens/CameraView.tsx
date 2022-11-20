@@ -14,8 +14,10 @@ import { Button, Icon } from "react-native-magnus";
 import { ViewProps } from "../navigation/HomeStack";
 import { StatusBar } from "expo-status-bar";
 
+const initialValue = { label: "Nie znaleziono", confidence: 0 };
+
 export function CameraView({ navigation }: ViewProps<"CameraView">) {
-  const sharedVal = useSharedValue({ label: "", confidence: 0 });
+  const sharedVal = useSharedValue(initialValue);
 
   useEffect(() => {
     Camera.requestCameraPermission();
@@ -28,7 +30,7 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
     (frame) => {
       "worklet";
       const labels = labelImage(frame);
-      sharedVal.value = labels[0];
+      sharedVal.value = labels[0] ?? initialValue;
     },
     [sharedVal]
   );
@@ -49,8 +51,8 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
       <ResultCard>
         <Label sharedValue={sharedVal} />
         <Button
-          bg="green300"
-          color="green700"
+          bg="orange300"
+          color="orange700"
           h={50}
           onPress={() => {
             navigation.navigate("ResultView", {
@@ -64,14 +66,14 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
           suffix={
             <Icon
               name="check"
-              color="green700"
+              color="orange700"
               ml="md"
               fontSize={18}
               fontFamily="FontAwesome"
             />
           }
         >
-          Zatwierdź
+          Confirm
         </Button>
       </ResultCard>
     </>

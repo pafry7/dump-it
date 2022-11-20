@@ -10,18 +10,28 @@ export const Label = ({
 }: {
   sharedValue: Animated.SharedValue<{ label: string; confidence: number }>;
 }) => {
-  console.log(sharedValue.value, sharedValue, "lol");
   const textProps = useAnimatedProps(
     () => ({ text: sharedValue.value.label }),
     [sharedValue.value]
   );
-  const confidenceProps = useAnimatedProps(
-    () => ({ text: (sharedValue.value.confidence ?? 0 * 100).toFixed(0) }),
-    [sharedValue.value]
-  );
+  const confidenceProps = useAnimatedProps(() => {
+    const confidence = (sharedValue.value.confidence * 100).toFixed(0);
+    const confidenceNumber = Number(
+      (sharedValue.value.confidence * 100).toFixed(0)
+    );
+    return {
+      text: confidence + "%",
+      color:
+        confidenceNumber > 90
+          ? "green"
+          : confidenceNumber > 80
+          ? "orange"
+          : "purple",
+    };
+  }, [sharedValue.value]);
 
   return (
-    <Box flexDir="row" alignItems="center" justifyContent="center">
+    <Box flexDir="row" alignItems="center" justifyContent="space-between">
       <AnimatedText
         style={styles.text}
         //@ts-expect-error native `text` prop isn't exposed in `TextInputProps`
@@ -29,7 +39,7 @@ export const Label = ({
         editable={false}
       />
       <AnimatedText
-        style={styles.confidencetext}
+        style={styles.confidenceText}
         //@ts-expect-error native `text` prop isn't exposed in `TextInputProps`
         animatedProps={confidenceProps}
         editable={false}
@@ -43,7 +53,8 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: "black",
   },
-  confidencetext: {
+  confidenceText: {
+    marginLeft: 4,
     fontSize: 16,
     color: "black",
   },

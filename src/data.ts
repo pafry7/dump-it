@@ -58,7 +58,7 @@ export const items: Item[] = [
       "Lampki nocne z butelek",
       "Wazon na kwiaty",
     ],
-    type: "electronic",
+    type: "waste",
     trashColor: "green",
     trashName: "Szkło",
   },
@@ -93,39 +93,10 @@ export const items: Item[] = [
   },
 ];
 
-("https://orangerecykling.pl/wycen");
-
 export interface CallendarItem {
   name: string;
   days: string;
 }
-
-export const calendarData: CallendarItem[] = [
-  {
-    days: "14.11",
-    name: "Odpady komunalne",
-  },
-  {
-    name: "Odpady Bio",
-    days: "15.11, 29.11",
-  },
-  {
-    name: "Szkło",
-    days: "28.11",
-  },
-  {
-    name: "Papier",
-    days: "20.11",
-  },
-  {
-    name: "Plastik",
-    days: "28.11",
-  },
-  {
-    name: "Metal",
-    days: "28.11",
-  },
-];
 
 export const trashInfo = [
   {

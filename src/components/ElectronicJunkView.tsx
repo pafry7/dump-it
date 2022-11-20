@@ -25,22 +25,6 @@ interface ReuseInfoProps {
   tips: string[];
 }
 
-export const ReuseInfo = ({ tips }: ReuseInfoProps) => {
-  const { width } = Dimensions.get("window");
-  return (
-    <Div w={width} p={20}>
-      <Text fontSize={24} fontWeight="500" textAlign="center">
-        Użyj w inny sposób!
-      </Text>
-      <Box mt={50}>
-        {tips.map((tip, index) => (
-          <TipItem tip={tip} key={index} />
-        ))}
-      </Box>
-    </Div>
-  );
-};
-
 const LinkText = ({
   text,
   link,
@@ -64,8 +48,8 @@ const LinkText = ({
           {text}
         </Text>
         <Icon
-          name="arrow-right"
-          color="indigo700"
+          name="external-link"
+          color="orange500"
           fontSize={18}
           fontFamily="FontAwesome"
         />
@@ -73,6 +57,8 @@ const LinkText = ({
     </Box>
   );
 };
+
+const Line = () => <Box h={2} bg="gray300" />;
 
 export const ElectronicJunkView = ({ result }: { result: Item }) => {
   return (
@@ -93,6 +79,7 @@ export const ElectronicJunkView = ({ result }: { result: Item }) => {
               text="Przekaż telefon do recyclingu"
               link="https://orangerecykling.pl/wycen"
             />
+
             <LinkText
               mt={32}
               text="Zamów elektrobygade"
