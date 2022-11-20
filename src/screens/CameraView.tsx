@@ -14,7 +14,7 @@ import { Button, Icon } from "react-native-magnus";
 import { ViewProps } from "../navigation/HomeStack";
 import { StatusBar } from "expo-status-bar";
 
-const initialValue = { label: "Nie znaleziono", confidence: 0 };
+const initialValue = { label: "Not found", confidence: 0 };
 
 export function CameraView({ navigation }: ViewProps<"CameraView">) {
   const sharedVal = useSharedValue(initialValue);

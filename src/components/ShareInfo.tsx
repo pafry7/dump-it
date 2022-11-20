@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions } from "react-native";
-import { Box, Button, Div, Text } from "react-native-magnus";
+import { Box, Button, Div, Icon, Text } from "react-native-magnus";
 
 import Animated, { FadeInUp } from "react-native-reanimated";
 
@@ -11,7 +11,7 @@ export const ShareInfo = ({}: ReuseInfoProps) => {
   return (
     <Div w={width} p={20} alignItems="center">
       <Text fontSize={24} fontWeight="500" textAlign="center">
-        Daj znać innym!
+        Share with others!
       </Text>
       <Text
         fontSize={22}
@@ -20,7 +20,7 @@ export const ShareInfo = ({}: ReuseInfoProps) => {
         mt={20}
         color="gray"
       >
-        Oddaj komuś kto tego bardziej potrzebuje lub wymień się.
+        Give it away to someone who needs it more or barter.
       </Text>
       <Box mt={50}>
         <Button
@@ -31,12 +31,21 @@ export const ShareInfo = ({}: ReuseInfoProps) => {
           onPress={() => {
             console.log("share");
           }}
-          w={140}
+          w={120}
           rounded={12}
           fontSize="xl"
           fontWeight="bold"
+          suffix={
+            <Icon
+              ml={8}
+              name="heart"
+              color="orange700"
+              fontSize="3xl"
+              fontFamily="MaterialCommunityIcons"
+            />
+          }
         >
-          Podziel się
+          Share
         </Button>
       </Box>
     </Div>

@@ -25,7 +25,7 @@ export const ReuseInfo = ({ tips }: ReuseInfoProps) => {
   return (
     <Div w={width} p={20}>
       <Text fontSize={24} fontWeight="500" textAlign="center">
-        Użyj w inny sposób!
+        Use in other ways!
       </Text>
       <Box mt={50}>
         {tips.map((tip, index) => (

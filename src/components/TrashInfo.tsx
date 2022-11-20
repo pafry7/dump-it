@@ -111,7 +111,7 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
   return (
     <Div w={width} p={20} alignItems="center">
       <Text fontSize={24} fontWeight="500" textAlign="center">
-        Wyrzuć do odpowiedniego śmietnika/worka
+        Dispose of in the appropriate trash/garbage bag
       </Text>
       <Box mt={50} alignItems="center" justifyContent="center">
         <TrashItem
@@ -185,7 +185,7 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
           </Text>
           <Box mt={8}>
             <Text fontSize={18} color="green600" fontWeight="500">
-              Co wyrzucać?
+              What can be thrown away?
             </Text>
             <Box mt={4}>
               {trashData.shouldBeDumped.map((item) => (
@@ -197,7 +197,7 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
           </Box>
           <Box mt={8} mb={50}>
             <Text fontSize={18} color="red500" fontWeight="500">
-              Czego nie wyrzucać?
+              What can't be thrown away?
             </Text>
             <Box mt={4}>
               {trashData.shouldNotBeDumped.map((item) => (
