@@ -3,6 +3,7 @@ type ItemType = "shareable" | "electronic" | "waste";
 export interface Item {
   type: ItemType;
   name: string;
+  id: string;
   tips: string[];
   trashColor: string;
   trashName: string;
@@ -10,7 +11,8 @@ export interface Item {
 
 export const items: Item[] = [
   {
-    name: "banana",
+    id: "banana",
+    name: "Banan",
     tips: [
       "Nawóz pod inne rośliny",
       "Sprawdzony krem nawilżający",
@@ -21,7 +23,20 @@ export const items: Item[] = [
     trashName: "Bio",
   },
   {
-    name: "plastic bottle",
+    id: "Fruit",
+    name: "Owoc",
+    tips: [
+      "Nawóz pod inne rośliny",
+      "Sprawdzony krem nawilżający",
+      "Chcesz mieć bielsze zęby? Pocieraj je skórką od banana",
+    ],
+    type: "waste",
+    trashColor: "yellow800",
+    trashName: "Bio",
+  },
+  {
+    id: "plastic bottle",
+    name: "Butelka",
     tips: [
       "Pojemnik do kiszenia ogórków",
       "Karmnik dla ptaków",
@@ -35,7 +50,21 @@ export const items: Item[] = [
     trashName: "Plastik",
   },
   {
-    name: "glass bottle",
+    id: "sky",
+    name: "Butelka",
+    tips: [
+      "Minimalistyczny wazon na kwiaty",
+      "Własny dozownik do mydła",
+      "Lampki nocne z butelek",
+      "Wazon na kwiaty",
+    ],
+    type: "electronic",
+    trashColor: "green",
+    trashName: "Szkło",
+  },
+  {
+    id: "glass bottle",
+    name: "Butelka",
     tips: [
       "Minimalistyczny wazon na kwiaty",
       "Własny dozownik do mydła",
@@ -43,18 +72,20 @@ export const items: Item[] = [
       "Wazon na kwiaty",
     ],
     type: "waste",
-    trashColor: "green",
+    trashColor: "green500",
     trashName: "Szkło",
   },
   {
-    name: "mobile device",
+    id: "Mobile Phone",
+    name: "Telefon",
     tips: [],
     type: "electronic",
     trashColor: "green",
     trashName: "Nie dotyczy",
   },
   {
-    name: "vase",
+    id: "vase",
+    name: "Waza",
     tips: [],
     type: "shareable",
     trashColor: "green",
@@ -62,12 +93,7 @@ export const items: Item[] = [
   },
 ];
 
-const electronicTips = [
-  "Zostaw zużyty sprzęt w sklepie, w którym kupujesz nowe urządzenie",
-  "Zostaw małogabarytowy zużyty sprzęt w dużym markecie bez konieczności kupowania nowego",
-  "Oddaj zużyty sprzęt elektryczny i elektroniczny w miejscu dostawy",
-  "Odnieś zużyty sprzęt do punktu zbierania",
-];
+("https://orangerecykling.pl/wycen");
 
 export interface CallendarItem {
   name: string;
@@ -98,5 +124,30 @@ export const calendarData: CallendarItem[] = [
   {
     name: "Metal",
     days: "28.11",
+  },
+];
+
+export const trashInfo = [
+  {
+    trashName: "Szkło",
+    shouldBeDumped: [
+      "Butelki i słoiki po napojach i żywności",
+      "Szklane opakowania po kosmetykach",
+    ],
+    shouldNotBeDumped: [
+      "Butelki i słoiki po napojach i żywności",
+      "Szklane opakowania po kosmetykach",
+      "Ceramiki, doniczek, porcelany, fajansu, kryształów",
+      "Szkła okularowego",
+      "Szkła żaroodpornego",
+      "Zniczy z zawartością wosku",
+      "Żarówek i świetlówek",
+      "Reflektorów",
+      "Opakowań po lekach, rozpuszczalnikach, olejach silnikowych",
+      "Luster",
+      "Szyb okiennych i zbrojonych",
+      "Monitorów i lamp telewizyjnych",
+      "Termometrów i strzykawek",
+    ],
   },
 ];

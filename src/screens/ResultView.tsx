@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 import { Box, Button, Div, Icon, Text } from "react-native-magnus";
 import {
   SafeAreaView,
@@ -13,6 +13,7 @@ import { ReuseInfo } from "../components/ReuseInfo";
 import { ShareInfo } from "../components/ShareInfo";
 import { TrashInfo } from "../components/TrashInfo";
 import { StatusBar } from "expo-status-bar";
+import { ElectronicJunkView } from "../components/ElectronicJunkView";
 
 const StepCircles = ({
   index,
@@ -41,8 +42,11 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
   const [index, setIndex] = useState(0);
   const { result } = route.params;
   const { width, height } = Dimensions.get("window");
-  const item = items[0];
   const scroll = useRef<Animated.ScrollView>(null);
+
+  const item = items.find(
+    (item) => item.id.toLowerCase() === result.toLowerCase()
+  );
 
   const goBack = (index: number) => {
     scroll.current?.scrollTo({
@@ -67,147 +71,165 @@ export const ResultView = ({ route, navigation }: ViewProps<"ResultView">) => {
 
   return (
     <Div h="100%" w="100%" bg="white">
-      <StatusBar style="dark" />
       <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar style="dark" />
         <Header name={result} goBack={navigation.goBack} />
-        <Animated.View
-          style={{
-            height: height - 150 - insets.top,
-          }}
-        >
-          <Animated.ScrollView
-            ref={scroll}
-            horizontal
-            snapToInterval={width}
-            // not working properly when pressing buttons
-            // fix when there is enough time
-            // onScroll={(e) => {
-            //   const current = Math.round(e.nativeEvent.contentOffset.x / width);
-            //   console.log(current, index, e.nativeEvent.contentOffset.x);
-            //   // if (current < index) {
-            //   setIndex(current);
-            //   // }
-            // }}
-            // scrollEventThrottle={100}
-            // decelerationRate="fast"
-            scrollEnabled={false}
-            showsHorizontalScrollIndicator={false}
-            bounces={false}
-          >
-            <Div
-              w="100%"
-              flexDir="row"
-              justifyContent="flex-start"
-              h={height - 50 - insets.top - 40} // - (header + status bar)
+        {item.type === "electronic" ? (
+          <ElectronicJunkView result={item} />
+        ) : (
+          <>
+            <Animated.View
+              style={{
+                height: height - 150 - insets.top,
+              }}
             >
-              {item.type === "shareable" ? (
-                <>
-                  <ReuseInfo tips={item.tips} />
-                  <ShareInfo />
-                  <TrashInfo color={item.trashColor} name={item.trashName} />
-                </>
-              ) : item.type === "waste" ? (
-                <>
-                  <ReuseInfo tips={item.tips} />
-                  <TrashInfo color={item.trashColor} name={item.trashName} />
-                </>
-              ) : null}
-            </Div>
-          </Animated.ScrollView>
-        </Animated.View>
-        <Box alignSelf="center" w="100%" alignItems="center" h="100%" px={12}>
-          <StepCircles index={index} circlesAmount={maxSteps} />
-          <Box
-            mt={10}
-            flexDir="row"
-            alignItems="center"
-            justifyContent="space-between"
-            w="100%"
-          >
-            {index > 0 ? (
-              <Button
-                bg="indigo300"
-                mt={6}
-                color="indigo700"
-                h={50}
-                onPress={() => {
-                  goBack(index);
-                }}
-                w={120}
-                rounded={12}
-                fontSize="xl"
-                fontWeight="bold"
-                alignSelf="flex-end"
-                prefix={
-                  <Icon
-                    name="arrow-left"
-                    color="indigo700"
-                    mr="md"
-                    fontSize={18}
-                    fontFamily="FontAwesome"
-                  />
-                }
+              <Animated.ScrollView
+                ref={scroll}
+                horizontal
+                snapToInterval={width}
+                // not working properly when pressing buttons
+                // fix when there is enough time
+                // onScroll={(e) => {
+                //   const current = Math.round(e.nativeEvent.contentOffset.x / width);
+                //   console.log(current, index, e.nativeEvent.contentOffset.x);
+                //   // if (current < index) {
+                //   setIndex(current);
+                //   // }
+                // }}
+                // scrollEventThrottle={100}
+                // decelerationRate="fast"
+                scrollEnabled={false}
+                showsHorizontalScrollIndicator={false}
+                bounces={false}
               >
-                Wstecz
-              </Button>
-            ) : (
-              <Box w={120} />
-            )}
-            {lastStep ? (
-              <Button
-                bg="orange300"
-                mt={6}
-                color="orange700"
-                h={50}
-                onPress={() => {
-                  navigation.goBack();
-                }}
-                w={120}
-                rounded={12}
-                fontSize="xl"
-                fontWeight="bold"
-                alignSelf="flex-end"
-                suffix={
-                  <Icon
-                    name="check"
+                <Div
+                  w="100%"
+                  flexDir="row"
+                  justifyContent="flex-start"
+                  h={height - 50 - insets.top - 40} // - (header + status bar)
+                >
+                  {item.type === "shareable" ? (
+                    <>
+                      <ReuseInfo tips={item.tips} />
+                      <ShareInfo />
+                      <TrashInfo
+                        color={item.trashColor}
+                        name={item.trashName}
+                      />
+                    </>
+                  ) : item.type === "waste" ? (
+                    <>
+                      <ReuseInfo tips={item.tips} />
+                      <TrashInfo
+                        color={item.trashColor}
+                        name={item.trashName}
+                      />
+                    </>
+                  ) : null}
+                </Div>
+              </Animated.ScrollView>
+            </Animated.View>
+            <Box
+              alignSelf="center"
+              w="100%"
+              alignItems="center"
+              h="100%"
+              px={12}
+            >
+              <StepCircles index={index} circlesAmount={maxSteps} />
+              <Box
+                mt={10}
+                flexDir="row"
+                alignItems="center"
+                justifyContent="space-between"
+                w="100%"
+              >
+                {index > 0 ? (
+                  <Button
+                    bg="indigo300"
+                    mt={6}
+                    color="indigo700"
+                    h={50}
+                    onPress={() => {
+                      goBack(index);
+                    }}
+                    w={120}
+                    rounded={12}
+                    fontSize="xl"
+                    fontWeight="bold"
+                    alignSelf="flex-end"
+                    prefix={
+                      <Icon
+                        name="arrow-left"
+                        color="indigo700"
+                        mr="md"
+                        fontSize={18}
+                        fontFamily="FontAwesome"
+                      />
+                    }
+                  >
+                    Wstecz
+                  </Button>
+                ) : (
+                  <Box w={120} />
+                )}
+                {lastStep ? (
+                  <Button
+                    bg="orange300"
+                    mt={6}
                     color="orange700"
-                    ml="md"
-                    fontSize={18}
-                    fontFamily="FontAwesome"
-                  />
-                }
-              >
-                Zakończ
-              </Button>
-            ) : (
-              <Button
-                bg="indigo300"
-                mt={6}
-                color="indigo700"
-                h={50}
-                onPress={() => {
-                  goForward(index);
-                }}
-                w={120}
-                rounded={12}
-                fontSize="xl"
-                fontWeight="bold"
-                alignSelf="flex-end"
-                suffix={
-                  <Icon
-                    name="arrow-right"
+                    h={50}
+                    onPress={() => {
+                      navigation.goBack();
+                    }}
+                    w={120}
+                    rounded={12}
+                    fontSize="xl"
+                    fontWeight="bold"
+                    alignSelf="flex-end"
+                    suffix={
+                      <Icon
+                        name="check"
+                        color="orange700"
+                        ml="md"
+                        fontSize={18}
+                        fontFamily="FontAwesome"
+                      />
+                    }
+                  >
+                    Zakończ
+                  </Button>
+                ) : (
+                  <Button
+                    bg="indigo300"
+                    mt={6}
                     color="indigo700"
-                    ml="md"
-                    fontSize={18}
-                    fontFamily="FontAwesome"
-                  />
-                }
-              >
-                Dalej
-              </Button>
-            )}
-          </Box>
-        </Box>
+                    h={50}
+                    onPress={() => {
+                      goForward(index);
+                    }}
+                    w={120}
+                    rounded={12}
+                    fontSize="xl"
+                    fontWeight="bold"
+                    alignSelf="flex-end"
+                    suffix={
+                      <Icon
+                        name="arrow-right"
+                        color="indigo700"
+                        ml="md"
+                        fontSize={18}
+                        fontFamily="FontAwesome"
+                      />
+                    }
+                  >
+                    Dalej
+                  </Button>
+                )}
+              </Box>
+            </Box>
+          </>
+        )}
       </SafeAreaView>
     </Div>
   );

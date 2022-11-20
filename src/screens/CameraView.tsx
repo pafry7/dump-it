@@ -10,13 +10,12 @@ import {
 } from "react-native-vision-camera";
 import { Label } from "../components/Label";
 import { ResultCard } from "../components/ResultCard";
-import { Button, Div, Icon } from "react-native-magnus";
+import { Button, Icon } from "react-native-magnus";
 import { ViewProps } from "../navigation/HomeStack";
-import { Pressable, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 export function CameraView({ navigation }: ViewProps<"CameraView">) {
-  const sharedVal = useSharedValue("");
+  const sharedVal = useSharedValue({ label: "", confidence: 0 });
 
   useEffect(() => {
     Camera.requestCameraPermission();
@@ -29,7 +28,7 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
     (frame) => {
       "worklet";
       const labels = labelImage(frame);
-      sharedVal.value = labels[0]?.label;
+      sharedVal.value = labels[0];
     },
     [sharedVal]
   );
@@ -47,28 +46,6 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
         isActive={true}
         frameProcessor={frameProcessor}
       />
-      <Div
-        bg="white"
-        position="absolute"
-        top={40}
-        right={20}
-        rounded={50}
-        p={10}
-      >
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => {
-            navigation.navigate("CalendarView");
-          }}
-        >
-          <Icon
-            name="calendar"
-            fontSize={20}
-            fontFamily="Entypo"
-            color="black"
-          />
-        </TouchableOpacity>
-      </Div>
       <ResultCard>
         <Label sharedValue={sharedVal} />
         <Button
@@ -76,7 +53,9 @@ export function CameraView({ navigation }: ViewProps<"CameraView">) {
           color="green700"
           h={50}
           onPress={() => {
-            navigation.navigate("ResultView", { result: sharedVal.value });
+            navigation.navigate("ResultView", {
+              result: sharedVal.value.label,
+            });
           }}
           w={140}
           rounded={12}
