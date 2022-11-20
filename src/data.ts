@@ -9,29 +9,33 @@ export interface Item {
   trashName: string;
 }
 
+// plastic - yellow500
+// bio - yellow900
+// paper - blue700
+// glass - green700
 export const items: Item[] = [
-  {
-    id: "banana",
-    name: "Banan",
-    tips: [
-      "Nawóz pod inne rośliny",
-      "Sprawdzony krem nawilżający",
-      "Chcesz mieć bielsze zęby? Pocieraj je skórką od banana",
-    ],
-    type: "waste",
-    trashColor: "yellow800",
-    trashName: "Bio",
-  },
   {
     id: "Fruit",
     name: "Owoc",
     tips: [
-      "Nawóz pod inne rośliny",
-      "Sprawdzony krem nawilżający",
-      "Chcesz mieć bielsze zęby? Pocieraj je skórką od banana",
+      "🚜 Nawóz pod inne rośliny",
+      "🧴 Sprawdzony krem nawilżający",
+      "🦷 Chcesz mieć bielsze zęby? Pocieraj je skórką od banana",
     ],
     type: "waste",
-    trashColor: "yellow800",
+    trashColor: "yellow900",
+    trashName: "Bio",
+  },
+  {
+    id: "Paper",
+    name: "Paper",
+    tips: [
+      "🚜 Nawóz pod inne rośliny",
+      "🧴 Sprawdzony krem nawilżający",
+      "🦷 Chcesz mieć bielsze zęby? Pocieraj je skórką od banana",
+    ],
+    type: "waste",
+    trashColor: "blue700",
     trashName: "Bio",
   },
   {
@@ -46,33 +50,31 @@ export const items: Item[] = [
       "Szufelka na psie kupy",
     ],
     type: "waste",
-    trashColor: "yellow300",
+    trashColor: "yellow500",
     trashName: "Plastik",
   },
   {
     id: "sky",
     name: "Butelka",
     tips: [
-      "Minimalistyczny wazon na kwiaty",
-      "Własny dozownik do mydła",
-      "Lampki nocne z butelek",
-      "Wazon na kwiaty",
+      "🫧 Własny dozownik do mydła",
+      "🏮 Lampki nocne z butelek",
+      "🌹 Wazon na kwiaty",
     ],
-    type: "waste",
-    trashColor: "green",
+    type: "shareable",
+    trashColor: "green700",
     trashName: "Szkło",
   },
   {
     id: "glass bottle",
     name: "Butelka",
     tips: [
-      "Minimalistyczny wazon na kwiaty",
       "Własny dozownik do mydła",
       "Lampki nocne z butelek",
       "Wazon na kwiaty",
     ],
     type: "waste",
-    trashColor: "green500",
+    trashColor: "green700",
     trashName: "Szkło",
   },
   {
@@ -101,6 +103,11 @@ export interface CallendarItem {
 export const trashInfo = [
   {
     trashName: "Szkło",
+    disposals: [
+      "2022-11-22T08:00:21+00:00",
+      "2022-12-02T08:00:21+00:00",
+      "2022-12-09T08:00:21+00:00",
+    ],
     shouldBeDumped: [
       "Butelki i słoiki po napojach i żywności",
       "Szklane opakowania po kosmetykach",

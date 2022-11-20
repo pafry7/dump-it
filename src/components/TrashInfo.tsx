@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo, useRef } from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, TouchableOpacity } from "react-native";
 import { Box, Button, Div, Icon, Text } from "react-native-magnus";
 import { IconButton } from "./IconButton";
+import { formatDistanceToNow, format } from "date-fns";
 
 import {
   BottomSheetModal,
@@ -25,45 +26,63 @@ const TrashItem = ({
   onPress: () => void;
 }) => {
   return (
-    <Box
-      w={200}
-      h={200}
-      rounded={16}
-      bg={color}
-      alignItems="center"
-      justifyContent="center"
-      position="relative"
-    >
-      <IconButton
-        style={{ position: "absolute", top: 7, right: 8 }}
-        onPress={onPress}
-        icon={
-          <Box
-            w={24}
-            h={24}
-            bg="white"
-            rounded="circle"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Icon
-              name="info"
-              color={color}
-              fontSize={18}
-              fontFamily="FontAwesome"
-            />
-          </Box>
-        }
-      />
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+      <Box
+        w={200}
+        h={200}
+        rounded={16}
+        bg={color}
+        alignItems="center"
+        justifyContent="center"
+        position="relative"
+      >
+        <Box
+          position="absolute"
+          top={10}
+          right={10}
+          w={24}
+          h={24}
+          bg="white"
+          rounded="circle"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Icon
+            name="info"
+            color={color}
+            fontSize={18}
+            fontFamily="FontAwesome"
+          />
+        </Box>
+        <Icon
+          name="recycle"
+          color="white"
+          fontSize={50}
+          fontFamily="MaterialCommunityIcons"
+        />
+        <Text fontSize={32} color="white" mt={12} fontWeight="500">
+          {name}
+        </Text>
+      </Box>
+    </TouchableOpacity>
+  );
+};
+
+const DateItem = ({ date }: { date: string }) => {
+  return (
+    <Box flexDir="row" alignItems="center" mr={24} mt={12}>
       <Icon
-        name="recycle"
-        color="white"
-        fontSize={50}
+        name="calendar"
+        color="black"
         fontFamily="MaterialCommunityIcons"
+        fontSize="4xl"
       />
-      <Text fontSize={32} color="white" mt={12} fontWeight="500">
-        {name}
-      </Text>
+      <Box ml={4}>
+        <Text fontWeight="500" fontSize={16}>
+          {format(new Date(date), "dd.MM.yyyy")}
+        </Text>
+        <Text color="gray">{formatDistanceToNow(new Date(date))}</Text>
+      </Box>
     </Box>
   );
 };
@@ -74,7 +93,7 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
   const bottomSheetDatesRef = useRef<BottomSheetModal>(null);
 
   const snapPoints = useMemo(() => ["50%"], []);
-  const snapPointsDates = useMemo(() => ["25%"], []);
+  const snapPointsDates = useMemo(() => ["30%"], []);
 
   const renderBackdrop = useCallback(
     (props) => (
@@ -115,7 +134,7 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
             Next garbage disposal
           </Text>
           <Text fontSize={18} fontWeight="400">
-            22.11.2022
+            {format(new Date(trashData.disposals[0]), "dd.MM.yyyy")}
           </Text>
         </Box>
         <Button
@@ -140,13 +159,15 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
         snapPoints={snapPointsDates}
         backdropComponent={renderBackdrop}
       >
-        <Box p={16}>
-          <Text fontSize={30} fontWeight="500">
-            Kolejne daty
+        <Box py={8} px={16}>
+          <Text fontSize={28} fontWeight="500">
+            Next garbage disposals
           </Text>
-          {["27.11.2022", "02.12.2022", "15.12.2022"].map((item) => (
-            <Text fontSize={14}>- {item}</Text>
-          ))}
+          <Box flexDir="row" alignItems="center" flexWrap="wrap" mt={8}>
+            {trashData.disposals.map((date) => (
+              <DateItem key={date} date={date} />
+            ))}
+          </Box>
         </Box>
       </BottomSheetModal>
       <BottomSheetModal
@@ -156,25 +177,35 @@ export const TrashInfo = ({ color, name }: ReuseInfoProps) => {
         snapPoints={snapPoints}
         backdropComponent={renderBackdrop}
       >
-        <BottomSheetScrollView style={{ padding: 16 }}>
-          <Text fontSize={30} fontWeight="500">
+        <BottomSheetScrollView
+          style={{ paddingHorizontal: 16, paddingVertical: 8 }}
+        >
+          <Text fontSize={28} fontWeight="500">
             {name}
           </Text>
           <Box mt={8}>
-            <Text fontSize={18}>Co wyrzucać?</Text>
-            {trashData.shouldBeDumped.map((item) => (
-              <Text key={item} fontSize={14}>
-                - {item}
-              </Text>
-            ))}
+            <Text fontSize={18} color="green600" fontWeight="500">
+              Co wyrzucać?
+            </Text>
+            <Box mt={4}>
+              {trashData.shouldBeDumped.map((item) => (
+                <Text key={item} fontSize={16} mt={2}>
+                  - {item}
+                </Text>
+              ))}
+            </Box>
           </Box>
           <Box mt={8} mb={50}>
-            <Text fontSize={18}>Czego nie wyrzucać?</Text>
-            {trashData.shouldNotBeDumped.map((item) => (
-              <Text key={item} fontSize={14}>
-                - {item}
-              </Text>
-            ))}
+            <Text fontSize={18} color="red500" fontWeight="500">
+              Czego nie wyrzucać?
+            </Text>
+            <Box mt={4}>
+              {trashData.shouldNotBeDumped.map((item) => (
+                <Text key={item} fontSize={16} mt={2}>
+                  - {item}
+                </Text>
+              ))}
+            </Box>
           </Box>
         </BottomSheetScrollView>
       </BottomSheetModal>

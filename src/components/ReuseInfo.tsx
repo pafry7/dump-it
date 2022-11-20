@@ -9,7 +9,7 @@ const TipItem = ({ tip }: { tip: string }) => {
       entering={FadeInUp.duration(300)}
       style={{ marginBottom: 20 }}
     >
-      <Text fontSize={24} fontWeight="500" textAlign="center">
+      <Text fontSize={22} fontWeight="500" textAlign="center" color="orange500">
         {tip}
       </Text>
     </Animated.View>

@@ -2,6 +2,8 @@ import React from "react";
 import { Dimensions } from "react-native";
 import { Box, Button, Div, Text } from "react-native-magnus";
 
+import Animated, { FadeInUp } from "react-native-reanimated";
+
 interface ReuseInfoProps {}
 
 export const ShareInfo = ({}: ReuseInfoProps) => {
@@ -11,14 +13,20 @@ export const ShareInfo = ({}: ReuseInfoProps) => {
       <Text fontSize={24} fontWeight="500" textAlign="center">
         Daj znać innym!
       </Text>
-      <Text fontSize={20} fontWeight="500" textAlign="center" mt={20}>
+      <Text
+        fontSize={22}
+        fontWeight="500"
+        textAlign="center"
+        mt={20}
+        color="gray"
+      >
         Oddaj komuś kto tego bardziej potrzebuje lub wymień się.
       </Text>
       <Box mt={50}>
         <Button
-          bg="blue300"
+          bg="orange300"
           mt={20}
-          color="blue700"
+          color="orange700"
           h={60}
           onPress={() => {
             console.log("share");

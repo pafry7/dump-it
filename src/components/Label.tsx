@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 32,
     color: "black",
+    fontWeight: "600",
   },
   confidenceText: {
     marginLeft: 4,
